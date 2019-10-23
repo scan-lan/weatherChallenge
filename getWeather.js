@@ -16,18 +16,18 @@ const displayMinMaxTemperatures = ({min, max}) => {
 
 async function fetchLocationDetails(city) {
     try {
-        const response = await axios.get(`https://www.metaweather.com/api/location/search/?query=${city}`);
-        return response.data[0];
+        const locationDetails = await axios.get(`https://www.metaweather.com/api/location/search/?query=${city}`);
+        return locationDetails.data[0];
     } catch (error) {
         displayError(error);
     }
 }
 
-const extractLocationId = responseData => responseData.woeid;
+const extractLocationId = locationDetails => locationDetails.woeid;
 
 const fetchFiveDayWeather = async locationId => {
-    let locationData = await axios.get(`https://www.metaweather.com/api/location/${locationId}`)
-    return locationData.data.consolidated_weather;
+    let fiveDayWeather = await axios.get(`https://www.metaweather.com/api/location/${locationId}`)
+    return fiveDayWeather.data.consolidated_weather;
 }
 
 const extractFiveDayAverageMinMaxTemperatures = fiveDaysWeatherData => {

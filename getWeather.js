@@ -1,4 +1,4 @@
-const argv = require('yargs').argv;
+const argv = require('yargs')["argv"];
 const axios = require('axios');
 
 const {city} = argv;
@@ -21,11 +21,11 @@ const fetchLocationDetails = async city => {
     return locationDetails.data[0];
 };
 
-const extractLocationId = locationDetails => locationDetails.woeid;
+const extractLocationId = locationDetails => locationDetails["woeid"];
 
 const fetchFiveDayWeather = async locationId => {
     let fiveDayWeather = await axios.get(`https://www.metaweather.com/api/location/${locationId}`);
-    return fiveDayWeather.data.consolidated_weather;
+    return fiveDayWeather.data["consolidated_weather"];
 };
 
 const extractFiveDayAverageMinMaxTemperatures = fiveDaysWeatherData => ({

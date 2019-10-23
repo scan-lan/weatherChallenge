@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e32cf05b-722d-4a00-9c45-8434240d1e6d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/getWeather.js" beforeDir="false" afterPath="$PROJECT_DIR$/getWeather.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +16,6 @@
   </component>
   <component name="ProjectId" id="1SZ82y94C4NKAajSFXOfymoNgia" />
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.3" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -54,6 +54,7 @@
       <updated>1571759554312</updated>
       <workItem from="1571759557208" duration="2182000" />
       <workItem from="1571818349540" duration="12449000" />
+      <workItem from="1571834535874" duration="765000" />
     </task>
     <servers />
   </component>

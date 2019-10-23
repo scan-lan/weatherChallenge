@@ -10,8 +10,8 @@ const displayError = error => {
 
 const displayMinMaxTemperatures = ({min, max}) => {
     console.log(`The average five day forecast temperatures for ${city} are
-  Minimum: ${min} degrees C
-  Maximum: ${max} degrees C`);
+  Minimum: ${min} degrees °C
+  Maximum: ${max} degrees °C`);
 };
 
 async function fetchLocationDetails(city) {
@@ -23,24 +23,25 @@ async function fetchLocationDetails(city) {
     }
 }
 
-fetchLocationDetails(city)
-    .then(extractLocationId => extractLocationId.woeid)
-    .then(async fetchFiveDayWeather => {
-    let locationData = await axios.get(`https://www.metaweather.com/api/location/${fetchFiveDayWeather}`)
-//     console.log(locationData.data.consolidated_weather);
+const extractLocationId = responseData => responseData.woeid;
+
+const fetchFiveDayWeather = async locationId => {
+    let locationData = await axios.get(`https://www.metaweather.com/api/location/${locationId}`)
     return locationData.data.consolidated_weather;
-    })
-    .then(extractFiveDayAverageMinMaxTemperatures => {
-//         console.log(extractFiveDayAverageMinMaxTemperatures);
-        minTempTotal = extractFiveDayAverageMinMaxTemperatures.reduce((tot, weatherDay) => tot + weatherDay.min_temp, 0)
-        maxTempTotal = extractFiveDayAverageMinMaxTemperatures.reduce((tot, weatherDay) => tot + weatherDay.max_temp, 0)
-        return {
-            avgMinTemp: (minTempTotal / extractFiveDayAverageMinMaxTemperatures.length).toFixed(2),
-            avgMaxTemp: (maxTempTotal / extractFiveDayAverageMinMaxTemperatures.length).toFixed(2)
-        }
-    })
-    .then(displayMinMaxTemperatures => {
-        console.log(`Average minimum temperature in the next five days for ${city}:\n${displayMinMaxTemperatures.avgMinTemp}°C`)
-        console.log(`Average maximum temperature in the next five days for ${city}:\n${displayMinMaxTemperatures.avgMaxTemp}°C`)
-    })
+}
+
+const extractFiveDayAverageMinMaxTemperatures = fiveDaysWeatherData => {
+    minTempTotal = fiveDaysWeatherData.reduce((tot, weatherDay) => tot + weatherDay.min_temp, 0)
+    maxTempTotal = fiveDaysWeatherData.reduce((tot, weatherDay) => tot + weatherDay.max_temp, 0)
+    return {
+        min: (minTempTotal / fiveDaysWeatherData.length).toFixed(2),
+        max: (maxTempTotal / fiveDaysWeatherData.length).toFixed(2)
+    }
+}
+
+fetchLocationDetails(city)
+    .then(extractLocationId)
+    .then(fetchFiveDayWeather)
+    .then(extractFiveDayAverageMinMaxTemperatures)
+    .then(displayMinMaxTemperatures)
     .catch(displayError);
